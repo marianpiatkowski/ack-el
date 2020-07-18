@@ -127,10 +127,10 @@ See `compilation-buffer-name-function' for details."
   :group 'ack)
 
 (defcustom ack-vc-grep-commands
-  '((".git" . "git --no-pager grep --color -n -i")
-    (".hg" . "hg grep -n -i")
+  '((".git" . "git --no-pager grep --color -n")
+    (".hg" . "hg grep -n")
     ;; Plugin bzr-grep required for bzr < 2.6
-    (".bzr" . "bzr grep --color=always -n -i"))
+    (".bzr" . "bzr grep --color=always -n"))
   "An alist of vc grep commands for `ack-skel-vc-grep'.
 Each element is of the form (VC_DIR . CMD)."
   :type '(repeat (cons string string))
@@ -319,7 +319,7 @@ This gets tacked on the end of the generated expressions.")
   (delete-minibuffer-contents)
   (let ((ack (or (car (split-string ack-command nil t)) "ack")))
     (cond ((equal ack "ag")
-           (skeleton-insert `(nil ,ack " -ig '" _ "'")))
+           (skeleton-insert `(nil ,ack " -ig " _ "''")))
           ((equal ack "rg")
            (skeleton-insert
             `(nil ,ack " --color always --files --iglob '*" _ "*'")))
@@ -371,7 +371,7 @@ This function is a suitable addition to
         (setq ack--project-root guessed-root)
         (ack-update-minibuffer-prompt))
       (delete-minibuffer-contents)
-      (skeleton-insert `(nil ,cmd " '" _ "'"))
+      (skeleton-insert `(nil ,cmd " " _ "''"))
       (when (and interactive ack--yanked-symbol)
         (insert ack--yanked-symbol)))))
 
@@ -511,7 +511,7 @@ minibuffer:
              (catch 'ack--auto-confirm
                (read-from-minibuffer "Ack: "
 				     `(,(concat ack-command "''")
-				       . ,(+ (length ack-command) 2))
+				       . ,(+ (length ack-command) 1))
                                      ack-minibuffer-local-map
                                      nil 'ack-history)))
            ack--project-root)))
