@@ -375,6 +375,13 @@ This function is a suitable addition to
       (when (and interactive ack--yanked-symbol)
         (insert ack--yanked-symbol)))))
 
+(defun ack-skel-no-pager ()
+  "Insert a template for use without a pager."
+  (interactive)
+  (delete-minibuffer-contents)
+  (let ((ack (or (car (split-string ack-command nil t)) "ack")))
+    (skeleton-insert `(nil ,ack " --no-pager " _ "''"))))
+
 (defun ack-yank-symbol-at-point ()
   "Yank the symbol from the window before entering the minibuffer."
   (interactive)
@@ -392,6 +399,7 @@ This function is a suitable addition to
     (define-key map "\t" 'completion-at-point)
     (define-key map "\M-I" 'ack-skel-file)
     (define-key map "\M-G" 'ack-skel-vc-grep)
+    (define-key map "\M-P" 'ack-skel-no-pager)
     (define-key map "\M-Y" 'ack-yank-symbol-at-point)
     (define-key map "'" 'skeleton-pair-insert-maybe)
     map)
