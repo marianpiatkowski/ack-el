@@ -1,7 +1,7 @@
 ==============================================================
  The Simple Emacs Interface to `Ack <http://beyondgrep.com>`_-like Tools
 ==============================================================
- 
+
 This package integrates `ack <http://beyondgrep.com>`_ with `Emacs
 <http://www.gnu.org/software/emacs>`_.  The resulting ``*ack*`` buffer
 is just like vanilla ``*grep*`` but results come from your tool of
@@ -30,6 +30,17 @@ Usage
 Just ``M-x ack`` or do something like ``(global-set-key (kbd "C-c
 C-g") 'ack)``.
 
+Since version 1.10 the default behavior for ``M-x ack`` has changed.
+To set it to pre v1.10, put the following to your ``.emacs`` file:
+
+``(setq ack-defaults-function 'ack-legacy-defaults)``
+
+You may want to set the path to the ack executable explicitly, like on Windows for instance.
+
+``(setq ack-command "C:/Wherever/I/Installed/Ack/Ack.exe ")``
+
+If you do this, make sure to put a space at the end of the command!
+
 Screenshots
 -----------
 
@@ -57,6 +68,7 @@ key bindings may be useful:
 
 - ``M-I`` => insert a template for case-insensitive file name search
 - ``M-G`` => insert a template for ``git grep``, ``hg grep`` or ``bzr grep``
+- ``M-P`` => insert a template with ``--no-pager`` option
 - ``M-Y`` => grab the symbol at point from the window before entering
   the minibuffer
 - ``TAB`` => completion for ack options
