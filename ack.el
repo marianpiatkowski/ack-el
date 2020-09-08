@@ -304,14 +304,39 @@ This gets tacked on the end of the generated expressions.")
   (setq-local compilation-error-face 'compilation-info)
   (add-hook 'compilation-filter-hook 'ack-filter nil t))
 
-;;; `compilation-display-error' is introduced in 24.4
-(unless (fboundp 'compilation-display-error)
+(unless (display-graphic-p)
   (defun ack-mode-display-match ()
     "Display in another window the match in current line."
     (interactive)
-    (setq compilation-current-error (point))
-    (next-error-no-select 0))
-  (define-key ack-mode-map "\C-o" #'ack-mode-display-match))
+    (let (lines-to-window-start)
+      (setq lines-to-window-start (line-number-at-pos))
+      (save-excursion
+        (goto-char (window-start))
+        (setq lines-to-window-start (- lines-to-window-start (line-number-at-pos)))
+        )
+      (let (old-compilation-context-lines compilation-context-lines)
+        (setq compilation-context-lines lines-to-window-start)
+        (compilation-display-error)
+        (setq compilation-context-lines old-compilation-context-lines))))
+  (defun ack-mode-goto-error (&optional event)
+    "Visit the source for the error message at point.
+Use this command in a compilation log buffer."
+    (interactive)
+    (let (lines-to-window-start)
+      (setq lines-to-window-start (line-number-at-pos))
+      (save-excursion
+        (goto-char (window-start))
+        (setq lines-to-window-start (- lines-to-window-start (line-number-at-pos)))
+        )
+      (let (old-compilation-context-lines compilation-context-lines)
+        (setq compilation-context-lines lines-to-window-start)
+        (compile-goto-error event)
+        (setq compilation-context-lines old-compilation-context-lines))))
+  (define-key ack-mode-map "\C-o" #'ack-mode-display-match)
+  (define-key ack-mode-map "\C-c\C-c" #'ack-mode-goto-error)
+  ;; postpone binding of carriage return in this derived mode
+  ;; (define-key ack-mode-map "\C-m" #'ack-mode-goto-error)
+  )
 
 (defun ack-skel-file ()
   "Insert a template for case-insensitive file name search."
