@@ -333,9 +333,7 @@ Use this command in a compilation log buffer."
         (compile-goto-error event)
         (setq compilation-context-lines old-compilation-context-lines))))
   (define-key ack-mode-map "\C-o" #'ack-mode-display-match)
-  (define-key ack-mode-map "\C-c\C-c" #'ack-mode-goto-error)
-  ;; postpone binding of carriage return in this derived mode
-  ;; (define-key ack-mode-map "\C-m" #'ack-mode-goto-error)
+  (define-key ack-mode-map [remap compile-goto-error] #'ack-mode-goto-error)
   )
 
 (defun ack-skel-file ()
