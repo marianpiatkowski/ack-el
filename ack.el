@@ -109,7 +109,7 @@
         ((executable-find "ack")
          "ack ")
         ((executable-find "ag")
-         "ag --no-pager ")
+         "ag --no-pager --no-heading ")
         ((executable-find "rg")
          "rg -n -H -S --no-heading --color always -e ")
         (t "ack "))
