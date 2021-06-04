@@ -64,6 +64,7 @@
 ;;
 ;; +  `M-I' inserts a template for case-insensitive file name search
 ;; +  `M-G' inserts a template for `git grep', `hg grep' or `bzr grep'
+;; +  `M-P' inserts a template with `--no-pager' option
 ;; +  `M-Y' inserts the symbol at point from the window before entering
 ;;    the minibuffer
 ;; +  `TAB' completes ack options
@@ -102,15 +103,16 @@
   :group 'ack)
 
 (defcustom ack-command
-  ;; Note: on GNU/Linux ack may be renamed to ack-grep
-  (concat (file-name-nondirectory (or
-                                   (executable-find "ack-grep")
-                                   (executable-find "ack")
-                                   (executable-find "ag")
-                                   (concat
-                                    (executable-find "rg")
-                                    " -n -H -S --no-heading --color always -e")
-                                   "ack")) " ")
+  ;; NOTE: on GNU/Linux ack may be renamed to ack-grep
+  (cond ((executable-find "ack-grep")
+         "ack-grep ")
+        ((executable-find "ack")
+         "ack ")
+        ((executable-find "ag")
+         "ag --no-pager ")
+        ((executable-find "rg")
+         "rg -n -H -S --no-heading --color always -e ")
+        (t "ack "))
   "The default command for \\[ack].
 
 Note also options to ack can be specified in ACK_OPTIONS
@@ -394,7 +396,9 @@ This function is a suitable addition to
         (setq ack--project-root guessed-root)
         (ack-update-minibuffer-prompt))
       (delete-minibuffer-contents)
-      (skeleton-insert `(nil ,cmd " " _ "''"))
+      (if interactive
+          (skeleton-insert `(nil ,cmd " " _ "''"))
+        (skeleton-insert `(nil ,cmd " '" _ "'")))
       (when (and interactive ack--yanked-symbol)
         (insert ack--yanked-symbol)))))
 
@@ -511,6 +515,11 @@ automatically attempted."
            (buffer-substring-no-properties
             (minibuffer-prompt-end) (point-max)))))
 
+(defun ack-defaults-function-offset ()
+    (case ack-defaults-function
+      ('ack-legacy-defaults 1)
+      ('ack-quickgrep-defaults 2)))
+
 ;;;###autoload
 (defun ack (command-args &optional directory)
   "Run ack using COMMAND-ARGS and collect output in a buffer.
@@ -542,7 +551,7 @@ minibuffer:
              (catch 'ack--auto-confirm
                (read-from-minibuffer "Ack: "
 				     `(,(concat ack-command "''")
-				       . ,(+ (length ack-command) 1))
+				       . ,(+ (length ack-command) (ack-defaults-function-offset)))
                                      ack-minibuffer-local-map
                                      nil 'ack-history)))
            ack--project-root)))
