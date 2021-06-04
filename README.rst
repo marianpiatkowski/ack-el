@@ -35,6 +35,8 @@ To set it to pre v1.10, put the following to your ``.emacs`` file:
 
 ``(setq ack-defaults-function 'ack-legacy-defaults)``
 
+A quick search for the pattern at the current location can be done with ``M-x quick-ack``.
+
 You may want to set the path to the ack executable explicitly, like on Windows for instance.
 
 ``(setq ack-command "C:/Wherever/I/Installed/Ack/Ack.exe ")``
@@ -62,6 +64,9 @@ More Usage
 - Type ``M-x ack`` and provide a pattern to search.
 - Type ``C-u M-x ack`` to search from current project root.
 - Type ``C-u C-u M-x ack`` to interactively choose a directory to search.
+- Type ``M-x quick-ack`` and instantaneously search for the pattern at current location.
+- Type ``C-u M-x quick-ack`` to search pattern at current location from current project root.
+- Type ``C-u C-u M-x quick-ack`` to interactively choose a directory to search pattern at current location.
 
 While reading ack command and args from the minibuffer, the following
 key bindings may be useful:
