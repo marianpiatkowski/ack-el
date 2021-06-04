@@ -570,5 +570,11 @@ minibuffer:
       (setq default-directory lexical-default-directory)
       (current-buffer))))
 
+;;;###autoload
+(defun quick-ack ()
+  (interactive)
+   (let ((ack-defaults-function 'ack-quickgrep-defaults))
+     (call-interactively 'ack)))
+
 (provide 'ack)
 ;;; ack.el ends here
