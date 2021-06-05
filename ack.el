@@ -314,8 +314,7 @@ This gets tacked on the end of the generated expressions.")
       (setq lines-to-window-start (line-number-at-pos))
       (save-excursion
         (goto-char (window-start))
-        (setq lines-to-window-start (- lines-to-window-start (line-number-at-pos)))
-        )
+        (setq lines-to-window-start (- lines-to-window-start (line-number-at-pos))))
       (let (old-compilation-context-lines compilation-context-lines)
         (setq compilation-context-lines lines-to-window-start)
         (compilation-display-error)
@@ -328,15 +327,13 @@ Use this command in a compilation log buffer."
       (setq lines-to-window-start (line-number-at-pos))
       (save-excursion
         (goto-char (window-start))
-        (setq lines-to-window-start (- lines-to-window-start (line-number-at-pos)))
-        )
+        (setq lines-to-window-start (- lines-to-window-start (line-number-at-pos))))
       (let (old-compilation-context-lines compilation-context-lines)
         (setq compilation-context-lines lines-to-window-start)
         (compile-goto-error event)
         (setq compilation-context-lines old-compilation-context-lines))))
   (define-key ack-mode-map "\C-o" #'ack-mode-display-match)
-  (define-key ack-mode-map [remap compile-goto-error] #'ack-mode-goto-error)
-  )
+  (define-key ack-mode-map [remap compile-goto-error] #'ack-mode-goto-error))
 
 (defun ack-skel-file ()
   "Insert a template for case-insensitive file name search."

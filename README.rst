@@ -62,9 +62,10 @@ More Usage
 - Type ``M-x ack`` and provide a pattern to search.
 - Type ``C-u M-x ack`` to search from current project root.
 - Type ``C-u C-u M-x ack`` to interactively choose a directory to search.
-- Type ``M-x quick-ack`` and instantaneously search for the pattern at current location.
-- Type ``C-u M-x quick-ack`` to search pattern at current location from current project root.
-- Type ``C-u C-u M-x quick-ack`` to interactively choose a directory to search pattern at current location.
+- Type ``M-x quick-ack`` and search for the pattern under cursor.
+- Type ``C-u M-x quick-ack`` to search for the pattern under cursor from current project root.
+- Type ``C-u C-u M-x quick-ack`` to interactively choose a directory and search for the pattern
+  under cursor.
 
 While reading ack command and args from the minibuffer, the following
 key bindings may be useful:
