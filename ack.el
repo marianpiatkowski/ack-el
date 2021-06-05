@@ -105,14 +105,14 @@
 (defcustom ack-command
   ;; NOTE: on GNU/Linux ack may be renamed to ack-grep
   (cond ((executable-find "ack-grep")
-         "ack-grep ")
+         "ack-grep")
         ((executable-find "ack")
-         "ack ")
+         "ack")
         ((executable-find "ag")
-         "ag --no-pager --no-heading ")
+         "ag --no-pager --no-heading")
         ((executable-find "rg")
-         "rg -n -H -S --no-heading --color always -e ")
-        (t "ack "))
+         "rg -n -H -S --no-heading --color always -e")
+        (t "ack"))
   "The default command for \\[ack].
 
 Note also options to ack can be specified in ACK_OPTIONS
@@ -550,8 +550,8 @@ minibuffer:
      (list (minibuffer-with-setup-hook 'ack-minibuffer-setup-function
              (catch 'ack--auto-confirm
                (read-from-minibuffer "Ack: "
-				     `(,(concat ack-command "''")
-				       . ,(+ (length ack-command) (ack-defaults-function-offset)))
+				     `(,(concat ack-command " ''")
+				       . ,(+ (length ack-command) 1 (ack-defaults-function-offset)))
                                      ack-minibuffer-local-map
                                      nil 'ack-history)))
            ack--project-root)))

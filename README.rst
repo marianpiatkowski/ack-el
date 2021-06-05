@@ -39,9 +39,7 @@ A quick search for the pattern at the current location can be done with ``M-x qu
 
 You may want to set the path to the ack executable explicitly, like on Windows for instance.
 
-``(setq ack-command "C:/Wherever/I/Installed/Ack/Ack.exe ")``
-
-If you do this, make sure to put a space at the end of the command!
+``(setq ack-command "C:/Wherever/I/Installed/Ack/Ack.exe")``
 
 Screenshots
 -----------
