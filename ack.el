@@ -80,6 +80,7 @@
 
 ;;; Code:
 
+(require 'cl)
 (require 'compile)
 (require 'pcase)
 (require 'ansi-color)
