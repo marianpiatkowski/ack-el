@@ -19,10 +19,17 @@ commands, switches etc...
 Install
 -------
 
-Ack is part of `GNU ELPA <http://elpa.gnu.org>`_ - the official package
-archive for Emacs:
+The current version can only be installed manually. Clone this repository
 
-``M-x package-install RET ack RET``
+``$ git clone https://github.com/marianpiatkowski/ack-el.git``
+
+and add ``ack-el`` to your ``load-path``:
+
+.. code-block:: lisp
+
+  (add-to-list 'load-path "path/to/ack-el")
+  (require 'ack)
+  (require 'pcmpl-ack)
 
 Usage
 -----
@@ -96,7 +103,7 @@ Check out the `emacs23
 Bugs
 ----
 
-https://github.com/leoliu/ack-el/issues
+https://github.com/marianpiatkowski/ack-el/issues
 
 Contributors
 ------------
