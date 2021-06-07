@@ -80,7 +80,6 @@
 
 ;;; Code:
 
-(require 'cl)
 (require 'compile)
 (require 'pcase)
 (require 'ansi-color)
@@ -514,7 +513,7 @@ automatically attempted."
             (minibuffer-prompt-end) (point-max)))))
 
 (defun ack-defaults-function-offset ()
-    (case ack-defaults-function
+    (pcase ack-defaults-function
       ('ack-legacy-defaults 1)
       ('ack-quickgrep-defaults 2)))
 
